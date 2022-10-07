@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  db-node:
+    restart: always
+    image: mysql:5.7.37
+    container_name: mysql-lable
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=eth_chain_data"
+    ports:
+      - 3307:3306
+    hostname: db-node
+
+  service-node:
+    restart: always
+    image: nick/maven-jdk:8386
+    container_name: address-backend-lable
+    environment:
+      - "HOST=db-node"
+    hostname: service-node
+    links:
+      - db-node:db-node
+    volumes:
+      - ./target:/opt/target
+    ports:
+      - 8090:8090
+    command:
+      java -jar -Djasypt.encryptor.password=1234 /opt/target/demo-0.0.1-SNAPSHOT.jar
