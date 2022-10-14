@@ -16,6 +16,6 @@ public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
   @Modifying
   @Transactional
   @Query(value = "update address SET address=?2, private_key=?3 WHERE id=?1 ", nativeQuery = true)
-  void updateById(int id, String address, String privateKey);
+  int updateById(long id, String address, String privateKey);
 
 }

@@ -21,7 +21,7 @@ public class AddressController {
   }
 
   @RequestMapping(value = "/update", method = RequestMethod.POST)
-  public JSONObject updateById(@RequestParam(value = "id", required = true) int id,
+  public JSONObject updateById(@RequestParam(value = "id", required = true) long id,
       @RequestParam(value = "address", required = true) String address,
       @RequestParam(value = "privateKey", required = true) String privateKey) {
 
