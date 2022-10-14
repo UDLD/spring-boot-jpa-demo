@@ -25,8 +25,9 @@ public class TaskController {
 
   @RequestMapping(value = "/addressAdd", method = RequestMethod.POST)
   public JSONObject executeTask(
-      @RequestParam(value = "addCount", required = false) String addCount) {
+      @RequestParam(value = "addCount", required = true) String addCount) {
     try {
+
       Log.logger.info("manual trigger: add address " + addCount);
       if (addCount == null) {
         TaskDemo.countAdd = 1;

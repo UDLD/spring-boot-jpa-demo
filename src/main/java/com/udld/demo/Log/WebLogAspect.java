@@ -4,7 +4,6 @@ package com.udld.demo.Log;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import javax.servlet.http.HttpServletRequest;
@@ -43,13 +42,13 @@ public class WebLogAspect {
   public void doAfterReturning(Object ret) throws Throwable {
   }
 
-  public String getBodyTxt(HttpServletRequest request) throws IOException {
-    BufferedReader br = request.getReader();
-    String str, wholeStr = "";
-    while ((str = br.readLine()) != null) {
-      wholeStr += str;
+  public Object getBodyTxt(HttpServletRequest request) throws IOException {
+    String methodName = request.getMethod();
+    if (methodName == "GET") {
+      return request.getQueryString();
+    } else {
+      return request.getParameterMap();
     }
-    return wholeStr;
   }
 
   @Around("webLog()")

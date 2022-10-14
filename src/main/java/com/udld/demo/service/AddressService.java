@@ -29,8 +29,8 @@ public class AddressService {
     addressRepository.save(addressEntity);
   }
 
-  public void updateAddress(AddressEntity addressEntity) {
-    addressRepository.updateById(addressEntity.getId(), addressEntity.getAddress(),
+  public int updateAddress(AddressEntity addressEntity) {
+    return addressRepository.updateById(addressEntity.getId(), addressEntity.getAddress(),
         addressEntity.getPrivateKey());
   }
 }

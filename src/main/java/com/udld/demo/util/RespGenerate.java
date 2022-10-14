@@ -14,4 +14,12 @@ public class RespGenerate {
     return res;
   }
 
+  public static JSONObject generateRes(int code, Object body, String message) {
+    JSONObject res = new JSONObject();
+    res.put("code", code);
+    res.put("body", body);
+    res.put("msg", message);
+    return res;
+  }
+
 }

@@ -15,8 +15,12 @@ run-mysql: ## Run build target jar.
 	@echo "[build] build target jar"
 	docker run -it --name mysql-node -p 3306:3306 -e MYSQL_DATABASE=eth_chain_data -e MYSQL_ROOT_PASSWORD=root -d mysql:5.7.37
 
-run: ## Run backend service.
-	@echo "[run] run backend service"
+run-local: ## Run backend service.
+	@echo "[build] run backend service"
+	java -jar -Djasypt.encryptor.password=1234 target/demo-*-SNAPSHOT.jar
+
+run: ## Run service.
+	@echo "[run] run service"
 	docker-compose up
 
 test: ## Run all test.
