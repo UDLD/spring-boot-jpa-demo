@@ -18,12 +18,26 @@ services:
     container_name: address-backend-lable
     environment:
       - "HOST=db-node"
+      - "HOST_NACOS=nacos-node"
     hostname: service-node
     links:
       - db-node:db-node
+      - nacos-node:nacos-node
     volumes:
       - ./target:/opt/target
     ports:
       - 8090:8090
     command:
       java -jar -Djasypt.encryptor.password=1234 /opt/target/demo-0.0.1-SNAPSHOT.jar
+
+  nacos-node:
+    image: nacos/nacos-server:v2.1.1
+    container_name: nacos-standalone
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    volumes:
+      - ./standalone-logs/:/home/nacos/logs
+    ports:
+      - "8848:8848"
+      - "9848:9848"
