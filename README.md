@@ -11,6 +11,7 @@ This project is a [Spring boot](https://spring.io/projects/spring-boot) (Java) p
 * Support docker build and run
 * Support access permission set by jwt
 * Support nacos config center
+* Support redis
  
 
 ## Getting Started

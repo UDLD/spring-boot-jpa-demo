@@ -4,15 +4,14 @@ package com.udld.demo.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.udld.demo.entity.UserEntity;
 import com.udld.demo.jwt.JwtProperties;
+import com.udld.demo.jwt.JwtUtil;
 import com.udld.demo.service.UserService;
 import com.udld.demo.util.Common;
+import com.udld.demo.util.RedisUtil;
 import com.udld.demo.util.RespGenerate;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
-
-import com.udld.demo.jwt.JwtUtil;
 
 
 @Controller
@@ -23,6 +22,10 @@ public class UserImpl {
 
   @Autowired
   private UserService userService;
+
+  @Autowired
+  private RedisUtil redisUtil;
+
 
   public UserEntity getUserInfoById(Long id) {
     UserEntity result;
@@ -82,6 +85,11 @@ public class UserImpl {
       userEntity.setPassword(password);
       try {
         UserEntity body = userService.insertAccount(userEntity);
+        String redisKey = Common.generateUserRedisKey(body.getId());
+        // update redis user info resp
+        if (redisUtil.hasKey(redisKey)) {
+          redisUtil.delete(redisKey);
+        }
         return RespGenerate.generateRes(RespGenerate.SUCCESS_CODE, body, "register success");
       } catch (Exception e) {
         return RespGenerate.generateRes(RespGenerate.ERROR_CODE, null, "register failed");

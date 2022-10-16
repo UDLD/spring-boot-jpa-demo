@@ -19,10 +19,12 @@ services:
     environment:
       - "HOST=db-node"
       - "HOST_NACOS=nacos-node"
+      - "HOST_REDIS=redis-node"
     hostname: service-node
     links:
       - db-node:db-node
       - nacos-node:nacos-node
+      - redis-node:redis-node
     volumes:
       - ./target:/opt/target
     ports:
@@ -41,3 +43,9 @@ services:
     ports:
       - "8848:8848"
       - "9848:9848"
+
+  redis-node:
+    restart: always
+    image: redis:7.0.0
+    ports:
+      - 6391:6379
