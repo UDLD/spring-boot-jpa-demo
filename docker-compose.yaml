@@ -1,28 +1,62 @@
 version: '3'
 
 services:
-  db-node:
-    restart: always
+  mysql-master:
+    container_name: mysql-master
     image: mysql:5.7.37
-    container_name: mysql-lable
+    restart: always
+    ports:
+      - 3308:3306
+    privileged: true
+    volumes:
+      - $PWD/mysql/msql-master/volumes/log:/var/log/mysql
+      - $PWD/mysql/msql-master/volumes/conf/my.cnf:/etc/mysql/my.cnf
+      - $PWD/mysql/msql-master/volumes/data:/var/lib/mysql
     environment:
       - "MYSQL_ROOT_PASSWORD=root"
       - "MYSQL_DATABASE=eth_chain_data"
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_general_ci',
+      '--max_connections=3000'
+    ]
+    networks:
+      - unitenet
+
+  mysql-slave:
+    container_name: mysql-slave
+    image: mysql:5.7.37
+    restart: always
     ports:
-      - 3307:3306
-    hostname: db-node
+      - 3309:3306
+    privileged: true
+    volumes:
+      - $PWD/mysql/msql-slave/volumes/log:/var/log/mysql
+      - $PWD/mysql/msql-slave/volumes/conf/my.cnf:/etc/mysql/my.cnf
+      - $PWD/mysql/msql-slave/volumes/data:/var/lib/mysql
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_DATABASE=eth_chain_data"
+    command: [
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_general_ci',
+      '--max_connections=3000'
+    ]
+    networks:
+      - unitenet
 
   service-node:
     restart: always
     image: nick/maven-jdk:8386
     container_name: address-backend-lable
     environment:
-      - "HOST=db-node"
+      - "HOST_PRI=mysql-master"
+      - "HOST_SEC=mysql-slave"
       - "HOST_NACOS=nacos-node"
       - "HOST_REDIS=redis-node"
     hostname: service-node
     links:
-      - db-node:db-node
+      - mysql-master:mysql-master
       - nacos-node:nacos-node
       - redis-node:redis-node
     volumes:
@@ -31,6 +65,8 @@ services:
       - 8090:8090
     command:
       java -jar -Djasypt.encryptor.password=1234 /opt/target/demo-0.0.1-SNAPSHOT.jar
+    networks:
+      - unitenet
 
   nacos-node:
     image: nacos/nacos-server:v2.1.1
@@ -43,9 +79,17 @@ services:
     ports:
       - "8848:8848"
       - "9848:9848"
+    networks:
+      - unitenet
 
   redis-node:
     restart: always
     image: redis:7.0.0
     ports:
       - 6391:6379
+    networks:
+      - unitenet
+
+networks:
+  unitenet:
+    driver: bridge

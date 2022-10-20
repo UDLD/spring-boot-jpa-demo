@@ -12,6 +12,7 @@ This project is a [Spring boot](https://spring.io/projects/spring-boot) (Java) p
 * Support access permission set by jwt
 * Support nacos config center
 * Support redis
+* Support mysql slave
  
 
 ## Getting Started

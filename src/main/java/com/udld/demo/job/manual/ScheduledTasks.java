@@ -4,6 +4,7 @@ package com.udld.demo.job.manual;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,6 +19,6 @@ public class ScheduledTasks {
 
   @PostConstruct
   public void scheduleTasks() {
-    //taskScheduler.schedule(task, new CronTrigger("0/20 * * * * *"));
+    taskScheduler.schedule(task, new CronTrigger("0/30 * * * * *"));
   }
 }

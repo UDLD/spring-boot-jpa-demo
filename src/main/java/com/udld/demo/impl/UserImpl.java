@@ -2,7 +2,7 @@ package com.udld.demo.impl;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.udld.demo.entity.UserEntity;
+import com.udld.demo.entity.primary.UserEntity;
 import com.udld.demo.jwt.JwtProperties;
 import com.udld.demo.jwt.JwtUtil;
 import com.udld.demo.service.UserService;
@@ -27,8 +27,8 @@ public class UserImpl {
   private RedisUtil redisUtil;
 
 
-  public UserEntity getUserInfoById(Long id) {
-    UserEntity result;
+  public com.udld.demo.entity.secondary.UserEntity getUserInfoById(Long id) {
+    com.udld.demo.entity.secondary.UserEntity result;
     try {
       result = userService.findById(id);
     } catch (Exception e) {
@@ -52,7 +52,7 @@ public class UserImpl {
   }
 
   public JSONObject userInfo(Long id) {
-    UserEntity userEntity = getUserInfoById(id);
+    com.udld.demo.entity.secondary.UserEntity userEntity = getUserInfoById(id);
     if (userEntity == null) {
       return RespGenerate.generateRes(RespGenerate.ERROR_CODE, null, "account info get failed");
     } else {

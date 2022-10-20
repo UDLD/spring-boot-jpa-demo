@@ -2,7 +2,7 @@ package com.udld.demo.impl;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.udld.demo.entity.AddressEntity;
+import com.udld.demo.entity.primary.AddressEntity;
 import com.udld.demo.service.AddressService;
 import com.udld.demo.util.Common;
 import com.udld.demo.util.RespGenerate;

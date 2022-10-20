@@ -1,4 +1,4 @@
-package com.udld.demo.Log;
+package com.udld.demo.log;
 
 public class WebLog {
 

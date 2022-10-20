@@ -1,4 +1,4 @@
-package com.udld.demo.Log;
+package com.udld.demo.log;
 
 import com.udld.demo.DemoApplication;
 import org.slf4j.Logger;

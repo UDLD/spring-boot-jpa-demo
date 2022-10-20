@@ -1,7 +1,7 @@
 package com.udld.demo.service;
 
-import com.udld.demo.dao.AddressRepository;
-import com.udld.demo.entity.AddressEntity;
+import com.udld.demo.dao.primary.AddressRepository;
+import com.udld.demo.entity.primary.AddressEntity;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
