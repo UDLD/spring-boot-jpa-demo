@@ -1,7 +1,7 @@
 package com.udld.demo.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.udld.demo.entity.UserEntity;
+import com.udld.demo.entity.primary.UserEntity;
 import com.udld.demo.impl.UserImpl;
 import com.udld.demo.util.Common;
 import com.udld.demo.util.RedisUtil;

@@ -1,7 +1,7 @@
 package com.udld.demo.job.manual;
 
 
-import com.udld.demo.Log.Log;
+import com.udld.demo.log.Log;
 import com.udld.demo.job.AddressJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

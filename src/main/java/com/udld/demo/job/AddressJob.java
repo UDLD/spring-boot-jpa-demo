@@ -1,7 +1,7 @@
 package com.udld.demo.job;
 
 
-import com.udld.demo.Log.Log;
+import com.udld.demo.log.Log;
 import com.udld.demo.impl.AddressImpl;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
@@ -23,7 +23,7 @@ public class AddressJob {
 
   @Async
   //corn从左到右（用空格隔开）：秒 分 小时 月份中的日期 月份 星期中的日期 年份
-  @Scheduled(cron = "0/10 * * * * *")
+  @Scheduled(cron = "0/100 * * * * *")
   public void addAddress()
       throws InvalidAlgorithmParameterException, NoSuchAlgorithmException, NoSuchProviderException {
 

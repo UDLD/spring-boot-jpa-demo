@@ -1,4 +1,4 @@
-package com.udld.demo.entity;
+package com.udld.demo.entity.secondary;
 
 import java.util.Date;
 import javax.persistence.Column;
@@ -14,25 +14,21 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Table(name = "address")
 @Data
+@Table(name = "user")
 @Entity
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
-public class AddressEntity {
+public class UserEntity {
 
   @Id
-  @GeneratedValue(strategy= GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id", columnDefinition = "int(11) NOT NULL AUTO_INCREMENT")
   private Long id;
-  @Column(name = "address", columnDefinition = "varchar(200) NOT NULL")
-  private String address;
-  @Column(name = "private_key", columnDefinition = "varchar(200) NOT NULL")
-  private String privateKey;
-  @Column(name = "used", columnDefinition = "int(11) NOT NULL")
-  private int used;
-  @Column(name = "type", columnDefinition = "int(11) NOT NULL")
-  private int type;
+  @Column(name = "name", columnDefinition = "varchar(200) NOT NULL")
+  private String userName;
+  @Column(name = "password", columnDefinition = "varchar(200) NOT NULL")
+  private String password;
   @CreatedDate
   @Column(name = "create_time", columnDefinition = "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP")
   private Date createTime;
