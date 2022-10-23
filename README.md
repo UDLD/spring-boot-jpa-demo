@@ -13,6 +13,7 @@ This project is a [Spring boot](https://spring.io/projects/spring-boot) (Java) p
 * Support nacos config center
 * Support redis
 * Support mysql slave
+* Support add dubbo provider
  
 
 ## Getting Started

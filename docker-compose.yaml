@@ -45,6 +45,28 @@ services:
     networks:
       - unitenet
 
+  nacos-node:
+    image: nacos/nacos-server:v2.1.1
+    container_name: nacos-standalone
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    volumes:
+      - ./standalone-logs/:/home/nacos/logs
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+    networks:
+      - unitenet
+
+  redis-node:
+    restart: always
+    image: redis:7.0.0
+    ports:
+      - 6391:6379
+    networks:
+      - unitenet
+
   service-node:
     restart: always
     image: nick/maven-jdk:8386
@@ -65,28 +87,6 @@ services:
       - 8090:8090
     command:
       java -jar -Djasypt.encryptor.password=1234 /opt/target/demo-0.0.1-SNAPSHOT.jar
-    networks:
-      - unitenet
-
-  nacos-node:
-    image: nacos/nacos-server:v2.1.1
-    container_name: nacos-standalone
-    environment:
-      - PREFER_HOST_MODE=hostname
-      - MODE=standalone
-    volumes:
-      - ./standalone-logs/:/home/nacos/logs
-    ports:
-      - "8848:8848"
-      - "9848:9848"
-    networks:
-      - unitenet
-
-  redis-node:
-    restart: always
-    image: redis:7.0.0
-    ports:
-      - 6391:6379
     networks:
       - unitenet
 

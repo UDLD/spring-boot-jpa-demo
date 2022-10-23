@@ -20,14 +20,14 @@ public class UserController {
   @Autowired
   private UserImpl userImpl;
 
-  @Autowired
-  private HttpServletRequest request;
+//  @Autowired
+//  private HttpServletRequest request;
 
   @Autowired
   private RedisUtil redisUtil;
 
   @RequestMapping("/info")
-  public JSONObject info() {
+  public JSONObject info(HttpServletRequest request) {
     Long id = Long.parseLong(request.getAttribute("id").toString());
     String redisKey = Common.generateUserRedisKey(id);
     if (redisUtil.hasKey(redisKey)) {
@@ -41,7 +41,7 @@ public class UserController {
   }
 
   @RequestMapping(value = "/update", method = RequestMethod.POST)
-  public JSONObject update(
+  public JSONObject update(HttpServletRequest request,
       @RequestParam(value = "passwordSet", required = true) String passwordSet) {
     Long id = Long.parseLong(request.getAttribute("id").toString());
     String redisKey = Common.generateUserRedisKey(id);
