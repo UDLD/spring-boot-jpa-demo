@@ -19,6 +19,10 @@ run-nacos: ## Run nacos service.
 	@echo "[run] run nacos service"
 	docker run -it --name nacos-node -p 8848:8848 -p 9848:9848 -v $(shell pwd)/standalone-logs/:/home/nacos/logs -e PREFER_HOST_MODE=hostname -e MODE=standalone nacos/nacos-server:v2.1.1
 
+run-elk: ## Run elk service.
+	@echo "[run] run elk service"
+	 docker-compose -f docker-compose-elk.yaml up
+
 run-local: ## Run backend service.
 	@echo "[run] run backend service"
 	java -jar -Djasypt.encryptor.password=1234 target/demo-*-SNAPSHOT.jar

@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+  elasticsearch:
+    restart: always
+    image: elasticsearch:7.17.1
+    container_name: elasticsearch
+    privileged: true
+    user: root
+    environment:
+      #设置集群名称为elasticsearch
+      - cluster.name=elasticsearch
+      #以单一节点模式启动
+      - discovery.type=single-node
+      #设置使用jvm内存大小
+      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+    volumes:
+      - $PWD/elk/elasticsearch/plugins:/usr/share/elasticsearch/plugins
+      - $PWD/elk/elasticsearch/data:/usr/share/elasticsearch/data
+#      - $PWD/elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elknet
+
+  logstash-node:
+    restart: always
+    image: logstash:7.17.1
+    container_name: logstash-node
+    ports:
+      - 4560:4560
+    privileged: true
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      #挂载logstash的配置文件
+      - $PWD/elk/logstash/conf.d/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    depends_on:
+      - elasticsearch
+    links:
+      #可以用es这个域名访问elasticsearch服务
+      - elasticsearch:es
+    networks:
+      - elknet
+
+  kibana:
+    restart: always
+    image: kibana:7.17.1
+    container_name: kibana
+    ports:
+      - 5601:5601
+    privileged: true
+    links:
+      #可以用es这个域名访问elasticsearch服务
+      - elasticsearch:es
+    depends_on:
+      - elasticsearch
+      - logstash-node
+    environment:
+      #设置访问elasticsearch的地址
+      - elasticsearch.hosts=http://elasticsearch:9200
+    volumes:
+      - $PWD/elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml
+    networks:
+      - elknet
+
+networks:
+  elknet:
+    driver: bridge
+
