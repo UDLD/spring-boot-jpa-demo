@@ -14,7 +14,7 @@ This project is a [Spring boot](https://spring.io/projects/spring-boot) (Java) p
 * Support redis
 * Support mysql slave
 * Support add dubbo provider
- 
+* Support elk service
 
 ## Getting Started
 
