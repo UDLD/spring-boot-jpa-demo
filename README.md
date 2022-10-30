@@ -15,6 +15,7 @@ This project is a [Spring boot](https://spring.io/projects/spring-boot) (Java) p
 * Support mysql slave
 * Support add dubbo provider
 * Support elk service
+* Support send and consume message of RabbitMQ
 
 ## Getting Started
 
