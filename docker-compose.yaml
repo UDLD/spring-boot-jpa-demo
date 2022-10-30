@@ -75,18 +75,34 @@ services:
       - "HOST_SEC=mysql-slave"
       - "HOST_NACOS=nacos-node"
       - "HOST_REDIS=redis-node"
+      - "HOST_RABBIT=rabbit-node"
     hostname: service-node
     links:
       - mysql-master:mysql-master
       - mysql-slave:mysql-slave
       - nacos-node:nacos-node
       - redis-node:redis-node
+      - rabbit-node:rabbit-node
     volumes:
       - ./target:/opt/target
     ports:
       - 8090:8090
     command:
       java -jar -Djasypt.encryptor.password=1234 /opt/target/demo-0.0.1-SNAPSHOT.jar
+    networks:
+      - unitenet
+
+  rabbit-node:
+    image: rabbitmq:3.9.24-management
+    hostname: rabbit-node
+    container_name: "rabbit-node"
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
     networks:
       - unitenet
 
