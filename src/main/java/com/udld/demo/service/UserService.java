@@ -21,7 +21,7 @@ public class UserService {
     return userRepository.findBName(name);
   }
 
-  public com.udld.demo.entity.secondary.UserEntity findById(Long id) {
+  public UserEntity findById(Long id) {
     return userSecondaryRepository.findById(id.longValue()).get();
   }
   public UserEntity insertAccount(UserEntity userEntity) {

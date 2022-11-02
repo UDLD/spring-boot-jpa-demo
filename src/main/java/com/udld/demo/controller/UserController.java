@@ -8,6 +8,7 @@ import com.udld.demo.util.RedisUtil;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,7 +50,8 @@ public class UserController {
     if (redisUtil.hasKey(redisKey)) {
       redisUtil.getRedisTemplate().delete(redisKey);
     }
-    return userImpl.update(id, passwordSet);
+    String passwordM = DigestUtils.md5DigestAsHex(passwordSet.getBytes());
+    return userImpl.update(id, passwordM);
   }
 
   public JSONObject formatUserInfoRespDateData(JSONObject sour) {
