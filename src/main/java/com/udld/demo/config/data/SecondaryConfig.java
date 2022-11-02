@@ -51,7 +51,7 @@ public class SecondaryConfig {
       EntityManagerFactoryBuilder builder) {
     return builder
         .dataSource(secondaryDataSource)
-        .packages("com.udld.demo.entity.secondary") //设置实体类所在位置
+        .packages("com.udld.demo.entity.primary") //设置实体类所在位置
         .persistenceUnit("secondaryPersistenceUnit")
         .properties(getVendorProperties())
         .build();

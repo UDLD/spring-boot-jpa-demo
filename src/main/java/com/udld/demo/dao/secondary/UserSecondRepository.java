@@ -1,6 +1,6 @@
 package com.udld.demo.dao.secondary;
 
-import com.udld.demo.entity.secondary.UserEntity;
+import com.udld.demo.entity.primary.UserEntity;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -27,8 +27,8 @@ public class UserImpl {
   private RedisUtil redisUtil;
 
 
-  public com.udld.demo.entity.secondary.UserEntity getUserInfoById(Long id) {
-    com.udld.demo.entity.secondary.UserEntity result;
+  public UserEntity getUserInfoById(Long id) {
+    UserEntity result;
     try {
       result = userService.findById(id);
     } catch (Exception e) {
@@ -52,7 +52,7 @@ public class UserImpl {
   }
 
   public JSONObject userInfo(Long id) {
-    com.udld.demo.entity.secondary.UserEntity userEntity = getUserInfoById(id);
+    UserEntity userEntity = getUserInfoById(id);
     if (userEntity == null) {
       return RespGenerate.generateRes(RespGenerate.ERROR_CODE, null, "account info get failed");
     } else {
