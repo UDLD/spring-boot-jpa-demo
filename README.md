@@ -16,6 +16,7 @@ This project is a [Spring boot](https://spring.io/projects/spring-boot) (Java) p
 * Support add dubbo provider
 * Support elk service
 * Support send and consume message of RabbitMQ
+* Support junit test
 
 ## Getting Started
 

@@ -9,7 +9,7 @@ build-image: ## Run build docker image.
 
 build: ## Run build target jar.
 	@echo "[build] build target jar"
-	docker run -i -v $(shell pwd):/opt/demo  nick/maven-jdk:8386  /bin/bash -c 'cd /opt/demo && mvn clean package'
+	docker run -i -v $(shell pwd):/opt/demo  nick/maven-jdk:8386  /bin/bash -c 'cd /opt/demo && mvn clean package -Dmaven.test.skip=true'
 
 run-mysql: ## Run mysql service.
 	@echo "[run] build target jar"
