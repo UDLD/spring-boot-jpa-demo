@@ -12,7 +12,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableJpaAuditing
 @EnableEncryptableProperties
 @EnableAsync        // 使Async生效
 @EnableScheduling   // 开启对定时任务的支持

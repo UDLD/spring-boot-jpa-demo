@@ -21,9 +21,6 @@ public class UserController {
   @Autowired
   private UserImpl userImpl;
 
-//  @Autowired
-//  private HttpServletRequest request;
-
   @Autowired
   private RedisUtil redisUtil;
 
